@@ -69,6 +69,17 @@ return {
     },
   },
 
+  -- Oxide — minimalist, near-monochrome. The real plugin, not a copy: its
+  -- base is #161616, exactly what sampling the screenshot gave.
+  {
+    "oxidescheme/oxide.nvim",
+    lazy = true,
+    priority = 900,
+    opts = {
+      transparent = true,   -- matches every other theme here
+    },
+  },
+
   -- Ayu — provides ayu-dark and ayu-mirage.
   -- No built-in transparency flag, so the backgrounds are cleared by hand.
   {
