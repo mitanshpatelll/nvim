@@ -89,7 +89,23 @@ map("x", "<leader>gs", ":Gitsigns stage_hunk<cr>",               "Stage the sele
 map("n", "<leader>gd", "<cmd>Gitsigns diffthis<cr>",             "Diff this file")
 map("n", "<leader>gc", "<cmd>Telescope git_commits<cr>",         "Browse commits")
 map("n", "<leader>gf", "<cmd>Telescope git_status<cr>",          "Changed files")
-map("n", "<leader>gg", "<cmd>LazyGit<cr>",                        "Open lazygit (full git UI)")
+map("n", "<leader>gg", function()
+  -- lazygit is a separate binary and is NOT in Ubuntu's apt. Without this
+  -- check the mapping throws a bare "command not found" from inside a
+  -- floating terminal, which is hard to connect to the real cause.
+  if vim.fn.executable("lazygit") == 0 then
+    vim.notify(
+      "lazygit is not installed.\n\n"
+        .. "  macOS : brew install lazygit\n"
+        .. "  Ubuntu: github.com/jesseduffield/lazygit/releases (not in apt)\n\n"
+        .. "Meanwhile: <leader>gv for a diff view, <leader>gf for changed files.",
+      vim.log.levels.WARN,
+      { title = "lazygit missing" }
+    )
+    return
+  end
+  vim.cmd("LazyGit")
+end, "Open lazygit (full git UI)")
 map("n", "<leader>gv", "<cmd>DiffviewOpen<cr>",                  "Diff view: all changes")
 map("n", "<leader>gh", "<cmd>DiffviewFileHistory %<cr>",         "History of this file")
 map("n", "<leader>gH", "<cmd>DiffviewFileHistory<cr>",           "History of the whole repo")

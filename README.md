@@ -30,6 +30,14 @@ No distro, no framework. ~2,100 lines of Lua you own, **~24 ms startup**.
 
 ---
 
+## Something not working?
+
+Run **`:Doctor`** inside Neovim. It checks every external dependency at once
+and prints the fix next to anything missing — the Neovim version, the C
+compiler tree-sitter needs, the clipboard helper Linux requires and macOS does
+not, ripgrep, node, lazygit, and how many parsers and mason tools actually
+installed.
+
 ## Install
 
 ```bash

@@ -103,6 +103,9 @@ vim.api.nvim_create_autocmd({ "BufWritePost", "FocusGained", "TermLeave" }, {
   end,
 })
 
+-- :Doctor — check this machine has everything the config needs.
+require("core.doctor")
+
 -- :Cheatsheet — open the key reference in a split.
 vim.api.nvim_create_user_command("Cheatsheet", function()
   vim.cmd("vsplit " .. vim.fn.stdpath("config") .. "/CHEATSHEET.md")

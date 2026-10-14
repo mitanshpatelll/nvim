@@ -11,6 +11,42 @@
 --  Health check:   :checkhealth
 -- ============================================================================
 
+-- ---------------------------------------------------------------------------
+-- Version guard.
+--
+-- This config calls vim.lsp.config, vim.diagnostic.jump and vim.hl.on_yank,
+-- all of which landed in Neovim 0.11. On anything older every one of those is
+-- nil and you get a cascade of unrelated errors on each keystroke, which tells
+-- you nothing. Fail once, clearly, instead.
+--
+-- Ubuntu 24.04's apt ships 0.9.5. Install a current build from the official
+-- release tarball (see install-ubuntu.sh) rather than apt.
+-- ---------------------------------------------------------------------------
+if vim.fn.has("nvim-0.11") == 0 then
+  local msg = {
+    "",
+    "  This Neovim is too old for this config.",
+    "",
+    "    running : " .. tostring(vim.version()),
+    "    needed  : 0.11 or newer",
+    "",
+    "  Nothing below will work until that is fixed. On Ubuntu, apt ships 0.9.5;",
+    "  install the official tarball instead:",
+    "",
+    "    curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz",
+    "    sudo rm -rf /opt/nvim && sudo mkdir -p /opt/nvim",
+    "    sudo tar -C /opt/nvim --strip-components=1 -xzf nvim-linux-x86_64.tar.gz",
+    "    sudo ln -sf /opt/nvim/bin/nvim /usr/local/bin/nvim",
+    "",
+    "  Or run install-ubuntu.sh from this repo, which does it for you.",
+    "",
+  }
+  vim.schedule(function()
+    vim.api.nvim_echo({ { table.concat(msg, "\n"), "ErrorMsg" } }, true, {})
+  end)
+  return
+end
+
 -- Leader must be set BEFORE plugins load, or mappings bind to the wrong key.
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
