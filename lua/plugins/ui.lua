@@ -11,7 +11,7 @@ return {
   {
     "catppuccin/nvim",
     name = "catppuccin",
-    lazy = false,
+    lazy = true,
     priority = 1000,
     opts = {
       flavour = "mocha",
@@ -45,7 +45,7 @@ return {
 
   {
     "folke/tokyonight.nvim",
-    lazy = false,
+    lazy = true,
     priority = 900,
     opts = {
       style = "night",
@@ -60,7 +60,7 @@ return {
 
   {
     "navarasu/onedark.nvim",
-    lazy = false,
+    lazy = true,
     priority = 900,
     opts = {
       style = "dark",
@@ -73,7 +73,7 @@ return {
   -- No built-in transparency flag, so the backgrounds are cleared by hand.
   {
     "Shatur/neovim-ayu",
-    lazy = false,
+    lazy = true,
     priority = 900,
     main = "ayu",   -- lazy.nvim can't guess this from the repo name "neovim-ayu"
     opts = {
@@ -98,7 +98,7 @@ return {
   -- setup() with a different `contrast` for each of the three menu entries.
   {
     "ellisonleao/gruvbox.nvim",
-    lazy = false,
+    lazy = true,
     priority = 900,
     opts = {
       terminal_colors = true,
@@ -111,7 +111,7 @@ return {
   -- Nord — the family the screenshot's "Yukinord" belongs to.
   {
     "gbprod/nord.nvim",
-    lazy = false,
+    lazy = true,
     priority = 900,
     opts = {
       transparent = true,
