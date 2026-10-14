@@ -153,7 +153,7 @@ So the usual move is `Space p`, type part of the name, then `Ctrl+v`.
 | `Space u n` | Relative line numbers |
 | `Space u d` | Error squiggles |
 | `Space u l` | Plugin manager (`:Lazy`) |
-| `Space u i` | Toggle inlay hints |
+| `Space u i` | Toggle inlay hints (off by default) |
 | `Space u c` | Toggle colour swatches |
 | `Space u m` | Toggle markdown rendering |
 | `Space u M` | Language server manager (`:Mason`) |
@@ -225,8 +225,11 @@ It behaves like VS Code's IntelliSense:
   anything importable from your project or `node_modules`.
 - **Function calls** — accepting a function inserts its parentheses and
   parameter placeholders; `Tab` jumps between them.
-- **Inlay hints** — parameter names and inferred types shown inline in grey.
-  `Space u i` toggles them.
+- **Inlay hints** — parameter names and inferred types shown inline.
+  **Off by default**: with them on, every call grows `value:`, `effect:`,
+  `deps:` labels and every binding a `: any` or `: void`, which buries the
+  code you wrote. `Space u i` turns them on for the current buffer when you
+  want to check a signature.
 
 Give tsserver about 8 seconds after opening a project before auto-imports
 appear; it is indexing. VS Code has the same pause.

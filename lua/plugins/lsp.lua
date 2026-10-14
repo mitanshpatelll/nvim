@@ -212,16 +212,15 @@ return {
         },
       })
 
-      -- Turn inlay hints on for every buffer that has a server supporting them.
-      vim.api.nvim_create_autocmd("LspAttach", {
-        group = vim.api.nvim_create_augroup("user_inlay_hints", { clear = true }),
-        callback = function(event)
-          local client = vim.lsp.get_client_by_id(event.data.client_id)
-          if client and client:supports_method("textDocument/inlayHint") then
-            pcall(vim.lsp.inlay_hint.enable, true, { bufnr = event.buf })
-          end
-        end,
-      })
+      -- Inlay hints are configured above but deliberately NOT enabled here.
+      --
+      -- With includeInlayParameterNameHints = "all" every call site grows
+      -- `value:`, `effect:`, `deps:`, `handler:` labels and every binding
+      -- grows `: any`, `: void`, `: number`. On real JSX that buries the code
+      -- you actually wrote.
+      --
+      -- <leader>ui turns them on for the current buffer when you want to
+      -- inspect a signature, and off again straight after.
 
       require("mason").setup({ ui = { border = "rounded" } })
       require("mason-lspconfig").setup({
