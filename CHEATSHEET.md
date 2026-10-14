@@ -248,6 +248,25 @@ wrapped paragraphs navigate naturally. Code files are unaffected.
 
 ---
 
+## Status and progress
+
+A spinner appears bottom-right while a language server is working. tsserver
+takes around 8 seconds to index a large project on open — that spinner is why
+completions are thin at first, and it is not broken.
+
+Messages now appear as popups in the corner rather than flashing once in the
+command line. `:Fidget history` shows everything you missed.
+
+Each window shows a breadcrumb trail of where the cursor is — useful when JSX
+is nested seven deep. Not shown in the file tree, commit panel or terminal.
+
+## Large files
+
+Open anything over 5000 lines or 1 MB and tree-sitter, the language servers and
+the indent guides switch off for that buffer, with a notice saying so. Reading,
+editing, searching and saving all still work. Your largest real file is 2793
+lines, so this only fires on bundles, lock files and logs.
+
 ## Animations
 
 Cursor leaves a short trail when it jumps; scrolling glides; splits slide open

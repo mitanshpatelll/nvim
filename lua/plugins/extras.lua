@@ -138,6 +138,65 @@ return {
   },
 
   -- --------------------------------------------------------------------------
+  -- LSP PROGRESS + NOTIFICATIONS
+  --
+  -- tsserver takes ~8 seconds to index a project the size of the web client.
+  -- During that window completions are thin and it looks broken, when it is
+  -- only warming up. This puts a spinner in the corner saying so.
+  --
+  -- fidget also backs vim.notify, so messages become corner popups with a
+  -- history (:Fidget history) instead of flashing once in the command line.
+  -- --------------------------------------------------------------------------
+  {
+    "j-hui/fidget.nvim",
+    event = "VeryLazy",
+    opts = {
+      progress = {
+        display = {
+          done_icon = "",
+          progress_icon = { pattern = "dots", period = 1 },
+        },
+      },
+      notification = {
+        override_vim_notify = true,   -- vim.notify -> fidget
+        window = {
+          winblend = 0,               -- keep the terminal blur visible
+          border = "rounded",
+          align = "bottom",
+        },
+      },
+    },
+  },
+
+  -- --------------------------------------------------------------------------
+  -- BREADCRUMBS — the symbol path at the top of the window. Useful when JSX
+  -- is nested seven levels deep and the opening tag has scrolled away.
+  -- Click a crumb, or <leader>; to pick one from the keyboard.
+  -- --------------------------------------------------------------------------
+  {
+    "Bekaboo/dropbar.nvim",
+    event = "VeryLazy",
+    opts = {
+      bar = {
+        -- Don't draw a bar in panels, terminals or the dashboard.
+        enable = function(buf, win, _)
+          if not vim.api.nvim_buf_is_valid(buf) or not vim.api.nvim_win_is_valid(win) then
+            return false
+          end
+          local ft = vim.bo[buf].filetype
+          local skip = { ["neo-tree"] = true, gitpanel = true, alpha = true,
+                         TelescopePrompt = true, lazy = true, mason = true, help = true }
+          if skip[ft] or vim.bo[buf].buftype ~= "" then
+            return false
+          end
+          -- A winbar costs a line; not worth it in a short split.
+          return vim.api.nvim_win_get_height(win) > 8
+        end,
+      },
+    },
+  },
+
+  -- --------------------------------------------------------------------------
   -- ANIMATION — scroll, window resize, split open/close.
   -- Cursor is deliberately left to smear-cursor below, which does it better.
   -- --------------------------------------------------------------------------

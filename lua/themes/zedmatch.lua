@@ -367,6 +367,22 @@ function M.load(opts)
     AlphaFooter             = { fg = c.comment, italic = true },
     SnacksIndent            = { fg = c.indent },
 
+    -- fidget: LSP progress + notifications
+    FidgetTask              = { fg = c.comment },
+    FidgetTitle             = { fg = c.keyword, bold = true },
+
+    -- dropbar: the breadcrumb winbar
+    DropBarIconKindFunction = { fg = c.func },
+    DropBarIconKindVariable = { fg = c.variable },
+    DropBarIconKindProperty = { fg = c.property },
+    DropBarIconUISeparator  = { fg = c.indent },
+    DropBarKindFunction     = { fg = c.func },
+    DropBarKindVariable     = { fg = c.variable },
+    DropBarMenuCurrentContext = { bg = c.selection },
+    DropBarMenuHoverEntry   = { bg = c.selection },
+    WinBar                  = { fg = c.fg_dim, bg = bg },
+    WinBarNC                = { fg = c.comment, bg = bg },
+
     -- commit panel under the file tree (lua/core/gitpanel.lua)
     GitPanelHead            = { fg = c.func, bold = true },
     GitPanelGraph           = { fg = c.indent_scope },

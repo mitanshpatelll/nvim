@@ -43,6 +43,10 @@ vim.api.nvim_create_autocmd("TermOpen", {
     vim.opt_local.number = false
     vim.opt_local.relativenumber = false
     vim.opt_local.signcolumn = "no"
+    -- The window may already carry a dropbar winbar from the buffer that was
+    -- in it before; dropbar does not re-evaluate when a buffer is swapped in,
+    -- so clear it here. A breadcrumb trail over a shell is meaningless.
+    vim.opt_local.winbar = nil
     vim.cmd("startinsert")
   end,
 })
@@ -102,6 +106,9 @@ vim.api.nvim_create_autocmd({ "BufWritePost", "FocusGained", "TermLeave" }, {
     end
   end,
 })
+
+-- Switch off the expensive features on very large files.
+require("core.bigfile").setup()
 
 -- :Doctor — check this machine has everything the config needs.
 require("core.doctor")
