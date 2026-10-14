@@ -291,6 +291,8 @@ choice survives restarts.
 
 | | |
 |---|---|
+| **Dune (blue)** | built for reading React/JSX at a glance |
+| **Dune (amber)** | same logic, warm tone |
 | **Oxide** | minimalist, near-monochrome — the real plugin |
 | **Zed Match** | sampled from a screenshot, transparent |
 | **Zed Match (solid)** | same, with its real #1d2129 backdrop |

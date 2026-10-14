@@ -30,6 +30,8 @@ end
 --- before      optional setup to run first
 M.themes = {
   -- Sampled from the Zed screenshot. See lua/themes/zedmatch.lua.
+  { key = "dune",             label = "Dune (blue)",       colorscheme = "dune" },
+  { key = "dune-sand",        label = "Dune (amber)",      colorscheme = "dune-sand" },
   { key = "oxide",            label = "Oxide (monochrome)", colorscheme = "oxide" },
   { key = "zedmatch",         label = "Zed Match",         colorscheme = "zedmatch" },
   { key = "zedmatch-solid",   label = "Zed Match (solid)", colorscheme = "zedmatch-solid" },
