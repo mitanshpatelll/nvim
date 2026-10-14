@@ -72,7 +72,11 @@ return {
   -- Oxide — minimalist, near-monochrome. The real plugin, not a copy: its
   -- base is #161616, exactly what sampling the screenshot gave.
   {
-    "oxidescheme/oxide.nvim",
+    "oxidescheme/nvim",
+    -- `name` is required: without it lazy installs this into a directory
+    -- literally called "nvim", which collides confusingly with everything else.
+    name = "oxide",
+    main = "oxide",
     lazy = true,
     priority = 900,
     opts = {
