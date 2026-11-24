@@ -185,16 +185,20 @@ return {
     ft = { "markdown" },
     dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
     opts = {
-      -- Render in normal mode only. The moment you enter insert mode the raw
-      -- markdown comes back, so you always edit the real characters.
-      render_modes = { "n", "c" },
+      -- Off by default: .md files open as plain text. <leader>um renders the
+      -- current file (a preview, like VS Code's Ctrl+Shift+V) and back again.
+      enabled = false,
+
+      -- While the preview is on, stay rendered in every mode, insert included.
+      -- To edit the raw text, turn the preview off with <leader>um.
+      render_modes = true,
 
       -- Keep the gutter free for gitsigns instead of markdown signs.
       sign = { enabled = false },
 
-      -- Show the raw text on the cursor's own line, so you can edit a heading
-      -- or link without toggling anything off.
-      anti_conceal = { enabled = true },
+      -- A preview is a preview: the cursor's line renders like every other
+      -- line instead of flipping back to raw markdown.
+      anti_conceal = { enabled = false },
 
       heading = {
         width = "block",      -- coloured bar only as wide as the text

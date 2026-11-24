@@ -23,7 +23,7 @@ From inside the terminal, `Ctrl+h/j/k/l` jump straight to a code pane.
 That costs the shell `Ctrl+h` (backspace), `Ctrl+j` (Enter), `Ctrl+k`
 (kill to end of line) and `Ctrl+l` (clear screen) — use Backspace, Enter,
 `Ctrl+u` and `clear` instead. `Ctrl+w` is untouched.
-| `Space q` | Close current file | `Ctrl+W` |
+| `Space q` | Close current file — or, in the tree/terminal/help, close that panel | `Ctrl+W` |
 | `Esc` | Clear search highlight / leave insert mode | `Esc` |
 
 ---
@@ -238,13 +238,14 @@ appear; it is indexing. VS Code has the same pause.
 
 ## Markdown
 
-Open any `.md` file and it renders in place: headings get icons and coloured
-bars, `- [ ]` becomes ☐, tables get real borders, code blocks get a boxed
-background with the language name.
+`.md` files open as **plain text**. Press `Space u m` to preview the current
+file in place: headings get icons and coloured bars, `- [ ]` becomes ☐, tables
+get real borders, code blocks get a boxed background with the language name.
+Press `Space u m` again to go back to plain text. Only that file changes; the
+next `.md` you open starts as plain text again.
 
-The line your **cursor** is on always shows the raw markdown, so you can edit it
-normally. Move off the line and it renders again. `Space u m` turns rendering
-off entirely.
+The preview stays fully rendered, including the line your cursor is on and
+while typing. To edit the raw markdown, turn the preview off first.
 
 Markdown also soft-wraps at the window edge, and `j`/`k` move by visual line so
 wrapped paragraphs navigate naturally. Code files are unaffected.

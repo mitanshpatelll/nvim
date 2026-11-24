@@ -25,6 +25,24 @@ end
 --- @param force boolean|nil discard unsaved changes
 function M.close(force)
   local target = vim.api.nvim_get_current_buf()
+  local win = vim.api.nvim_get_current_win()
+
+  -- Panels are not files. Space q inside the file tree, the commit panel, a
+  -- terminal or a help page closes THAT panel. Without this, the panel's
+  -- window was handed the next file in the list: the sidebar vanished, a
+  -- file appeared squeezed into its place, and a terminal's shell was killed.
+  local ft = vim.bo[target].filetype
+  if ft == "neo-tree" or ft == "gitpanel" then
+    vim.cmd("Neotree close")
+    require("core.gitpanel").close()
+    return
+  end
+  if vim.bo[target].buftype ~= "" then
+    -- Closing the window only hides a terminal; its shell keeps running and
+    -- <leader>t brings it back. Fails harmlessly if it's the last window.
+    pcall(vim.api.nvim_win_close, win, false)
+    return
+  end
 
   if vim.bo[target].modified and not force then
     vim.notify(

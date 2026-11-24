@@ -15,7 +15,9 @@ end
 map("n", "<leader>s", "<cmd>write<cr>",                      "Save file            (VS Code: Ctrl+S)")
 map("n", "<leader>S", "<cmd>wall<cr>",                       "Save all files       (VS Code: Ctrl+K S)")
 map("n", "<leader>e", function()
-  vim.cmd("Neotree toggle")
+  -- "show" opens the tree WITHOUT moving the cursor into it, like VS Code's
+  -- Ctrl+B. To go into the tree: Ctrl+l (it sits on the right) or click it.
+  vim.cmd("Neotree show toggle")
   -- neo-tree opens asynchronously; let its window exist before we hang the
   -- commit panel underneath it.
   vim.defer_fn(function() require("core.gitpanel").sync() end, 80)
@@ -187,7 +189,17 @@ map("n", "<leader>ui", function()
   vim.lsp.inlay_hint.enable(not on, { bufnr = 0 })
   vim.notify("Inlay hints: " .. (on and "OFF" or "ON"))
 end, "Toggle inlay hints")
-map("n", "<leader>um", "<cmd>RenderMarkdown toggle<cr>", "Toggle markdown rendering")
+map("n", "<leader>um", function()
+  if vim.bo.filetype ~= "markdown" then
+    vim.notify("Markdown preview only works in a .md file")
+    return
+  end
+  -- buf_toggle, not toggle: only THIS file switches. The next .md you open
+  -- still starts as plain text.
+  require("render-markdown").buf_toggle()
+  local on = require("render-markdown.state").get(vim.api.nvim_get_current_buf()).enabled
+  vim.notify("Markdown preview: " .. (on and "ON" or "OFF"))
+end, "Markdown preview on/off (VS Code: Ctrl+Shift+V)")
 map("n", "<leader>ul", "<cmd>Lazy<cr>",   "Plugin manager")
 map("n", "<leader>uM", "<cmd>Mason<cr>",  "Language server manager")
 map("n", "<leader>u?", "<cmd>Cheatsheet<cr>", "Open cheatsheet")

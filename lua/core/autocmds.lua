@@ -107,6 +107,30 @@ vim.api.nvim_create_autocmd({ "BufWritePost", "FocusGained", "TermLeave" }, {
   end,
 })
 
+-- :q on the last code pane should quit Neovim, not leave the file tree
+-- stretched across the whole screen. neo-tree's close_if_last_window can't do
+-- it on its own, because the commit panel counts as a second window.
+vim.api.nvim_create_autocmd("QuitPre", {
+  group = augroup("close_panels_on_last_quit"),
+  callback = function()
+    local cur = vim.api.nvim_get_current_win()
+    local panels, others = {}, 0
+    for _, w in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+      local ft = vim.bo[vim.api.nvim_win_get_buf(w)].filetype
+      if ft == "neo-tree" or ft == "gitpanel" then
+        panels[#panels + 1] = w
+      elseif w ~= cur and vim.api.nvim_win_get_config(w).relative == "" then
+        others = others + 1
+      end
+    end
+    if others == 0 and not vim.tbl_contains(panels, cur) then
+      for _, w in ipairs(panels) do
+        pcall(vim.api.nvim_win_close, w, true)
+      end
+    end
+  end,
+})
+
 -- Switch off the expensive features on very large files.
 require("core.bigfile").setup()
 

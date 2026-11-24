@@ -77,7 +77,7 @@ require("lazy").setup({
   change_detection = { notify = false },  -- don't nag when you edit this config
   performance = {
     rtp = {
-      disabled_plugins = { "gzip", "tarPlugin", "tohtml", "zipPlugin", "tutor" },
+      disabled_plugins = { "gzip", "tarPlugin", "tohtml", "zipPlugin" },
     },
   },
 })
